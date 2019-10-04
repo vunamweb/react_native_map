@@ -46,19 +46,38 @@ navigator.geolocation = require('@react-native-community/geolocation');
 
 export default class App extends Component {
   state = {
-    latitude: 0,
-    longitude: 0,
+    markers: [
+      {
+        title: '',
+        coordinates: {
+          latitude: 0,
+          longitude: 0
+        }
+      }
+    ]
   };
 
   componentDidMount() {
-    Gps.findCoordinates(this.success,this.error);
+    global.root = this;
+    Gps.findCoordinates(this.success, this.error);
   }
 
   success = (position) => {
     global.latitude = position.coords.latitude;
     global.longitude = position.coords.longitude;
-     
-    this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+
+    this.setState({
+      markers: [
+        {
+          title: '',
+          coordinates: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }
+        }
+      ]
+    });
+
     var newRegion = {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
@@ -74,26 +93,23 @@ export default class App extends Component {
 
   render() {
     const initialRegion = {
-      latitude: this.state.latitude,
-      longitude: this.state.longitude,
+      latitude: 0,
+      longitude: 0,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421
     };
 
-    const coordinate = {
-      latitude: this.state.latitude,
-      longitude: this.state.longitude
-    };
+    const coordinate = this.state.coordinate;
 
     return (
       <View style={styles.container}>
         <MapComponent
           style={styles.map}
           initialRegion={initialRegion}
-          coordinate={coordinate}
+          coordinate={this.state.markers}
           component={this}
         />
-        <IconBottom/>
+        <IconBottom />
       </View >
     );
   }
