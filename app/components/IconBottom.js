@@ -31,17 +31,19 @@ const data = [
   }
 ];
 
-const renderItem = ({ item, index }) =>
+
+
+
+class IconBottom extends Component {
+  render() {
+    const renderItem = ({ item, index }) =>
   <TouchableOpacity onPress={() => functions.loadNear()}>
     <Image
       style={styles.img}
       source={item.src}
     />
   </TouchableOpacity>
-
-
-class IconBottom extends Component {
-  render() {
+  
     return (
       <View>
         <FlatListViewNormal
