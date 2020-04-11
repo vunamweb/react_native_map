@@ -12,10 +12,19 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Home from './app/navigation/Home';
+import ShowNear from './app/navigation/ShowNear';
+
+import './app/config/config';
 
 const AppNavigator = createStackNavigator({
   Home: {
     screen: Home,
+    navigationOptions: {
+      header: null,
+  },
+  },
+  ShowNear: {
+    screen: ShowNear,
   },
 });
 

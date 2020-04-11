@@ -17,41 +17,35 @@ import functions from '../../app/function/function';
 import FlatListViewNormal from '../../app/components/library/FlatListViewNormal';
 import Navigation from '../../app/utility/Navigation';
 
-const data = [
-  {
-    src: require('../../app/access/img/coffee.png')
-  },
-  {
-    src: require('../../app/access/img/karaoke.png')
-  },
-  {
-    src: require('../../app/access/img/park.png')
-  },
-  {
-    src: require('../../app/access/img/atm.png')
-  }
-];
-
-class IconBottom extends Component {
+class ListItemBottom extends Component {
   render() {
     const renderItem = ({ item, index }) =>
-      <TouchableOpacity onPress={() => new Navigation(this.props.component.props.navigation).gotoScreen('ShowNear')}>
-        <Image
-          style={styles.img}
-          source={item.src}
+      <View>
+        <Text>{item.title}</Text>
+        <FlatListViewNormal
+          style={styles.listItemBottom_}
+          data={item.photos}
+          renderItem={renderItemChild}
+          horizontal={true}
         />
-      </TouchableOpacity>
+      </View>
+
+    const renderItemChild = ({ item, index }) =>
+      <Image
+        style={styles.img_}
+        source={{uri: item.src}}
+      />
 
     return (
-      <View style={this.props.style}>
+      <View style={styles.listItemBottom}>
         <FlatListViewNormal
-          data={data}
+          data={this.props.data}
           renderItem={renderItem}
-          horizontal={true}
+          horizontal={false}
         />
       </View>
     )
   }
 }
 
-export default IconBottom;
+export default ListItemBottom;
