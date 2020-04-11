@@ -1004,7 +1004,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   _reactNative.AppRegistry.registerComponent(_app.name, function () {
     return _App.default;
   });
-},0,[1,2,553,703],"index.js");
+},0,[1,2,553,706],"index.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
@@ -92313,6 +92313,10 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   var _Home = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[11], "./app/navigation/Home"));
 
+  var _ShowNear = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[12], "./app/navigation/ShowNear"));
+
+  _$$_REQUIRE(_dependencyMap[13], "./app/config/config");
+
   var _jsxFileName = "d:\\android\\react\\React-Native-CLI\\react_native_map\\App.js";
   var _components = {
     App: {
@@ -92335,7 +92339,13 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   var AppNavigator = (0, _reactNavigationStack.createStackNavigator)({
     Home: {
-      screen: _Home.default
+      screen: _Home.default,
+      navigationOptions: {
+        header: null
+      }
+    },
+    ShowNear: {
+      screen: _ShowNear.default
     }
   });
   var AppContainer = (0, _reactNavigation.createAppContainer)(AppNavigator);
@@ -92354,7 +92364,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
         return _react.default.createElement(AppContainer, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 27
+            lineNumber: 36
           }
         });
       }
@@ -92364,7 +92374,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   var _default2 = App;
   exports.default = _default2;
-},553,[1,156,22,23,30,33,36,47,195,554,635,662],"App.js");
+},553,[1,156,22,23,30,33,36,47,195,554,635,662,703,705],"App.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -103261,6 +103271,9 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   var NativeScreenValue;
   var NativeScreenContainerValue;
+  var NativeScreenStack;
+  var NativeScreenStackHeaderConfig;
+  var NativeScreenStackHeaderSubview;
   var AnimatedNativeScreen;
   var ScreensNativeModules = {
     get NativeScreen() {
@@ -103271,6 +103284,21 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     get NativeScreenContainer() {
       NativeScreenContainerValue = NativeScreenContainerValue || (0, _reactNative.requireNativeComponent)('RNSScreenContainer', null);
       return NativeScreenContainerValue;
+    },
+
+    get NativeScreenStack() {
+      NativeScreenStack = NativeScreenStack || (0, _reactNative.requireNativeComponent)('RNSScreenStack', null);
+      return NativeScreenStack;
+    },
+
+    get NativeScreenStackHeaderConfig() {
+      NativeScreenStackHeaderConfig = NativeScreenStackHeaderConfig || (0, _reactNative.requireNativeComponent)('RNSScreenStackHeaderConfig', null);
+      return NativeScreenStackHeaderConfig;
+    },
+
+    get NativeScreenStackHeaderSubview() {
+      NativeScreenStackHeaderSubview = NativeScreenStackHeaderSubview || (0, _reactNative.requireNativeComponent)('RNSScreenStackHeaderSubview', null);
+      return NativeScreenStackHeaderSubview;
     }
 
   };
@@ -103316,7 +103344,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
             ref: this.setRef,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 71
+              lineNumber: 94
             }
           }));
         } else {
@@ -103327,7 +103355,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
               ref: this.setRef,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 78
+                lineNumber: 101
               }
             }));
           } else {
@@ -103340,13 +103368,13 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
               style: _reactNative.StyleSheet.absoluteFill,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 86
+                lineNumber: 109
               }
             }), _react.default.createElement(_reactNative.Animated.View, {
               style: style,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 90
+                lineNumber: 113
               }
             }, children));
           }
@@ -103373,14 +103401,14 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
           return _react.default.createElement(_reactNative.View, (0, _extends2.default)({}, this.props, {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 101
+              lineNumber: 124
             }
           }));
         } else {
           return _react.default.createElement(ScreensNativeModules.NativeScreenContainer, (0, _extends2.default)({}, this.props, {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 103
+              lineNumber: 126
             }
           }));
         }
@@ -103390,6 +103418,62 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   }(_react.default.Component);
 
   ScreenContainer = _wrapComponent("ScreenContainer")(ScreenContainer);
+
+  var styles = _reactNative.StyleSheet.create({
+    headerSubview: {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  });
+
+  var ScreenStackHeaderRightView = function ScreenStackHeaderRightView(props) {
+    return _react.default.createElement(ScreensNativeModules.NativeScreenStackHeaderSubview, (0, _extends2.default)({}, props, {
+      type: "right",
+      style: styles.headerSubview,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 143
+      }
+    }));
+  };
+
+  var ScreenStackHeaderLeftView = function ScreenStackHeaderLeftView(props) {
+    return _react.default.createElement(ScreensNativeModules.NativeScreenStackHeaderSubview, (0, _extends2.default)({}, props, {
+      type: "left",
+      style: styles.headerSubview,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 151
+      }
+    }));
+  };
+
+  var ScreenStackHeaderTitleView = function ScreenStackHeaderTitleView(props) {
+    return _react.default.createElement(ScreensNativeModules.NativeScreenStackHeaderSubview, (0, _extends2.default)({}, props, {
+      type: "title",
+      style: styles.headerSubview,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 159
+      }
+    }));
+  };
+
+  var ScreenStackHeaderCenterView = function ScreenStackHeaderCenterView(props) {
+    return _react.default.createElement(ScreensNativeModules.NativeScreenStackHeaderSubview, (0, _extends2.default)({}, props, {
+      type: "center",
+      style: styles.headerSubview,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 167
+      }
+    }));
+  };
+
   module.exports = {
     ScreenContainer: ScreenContainer,
     Screen: Screen,
@@ -103402,6 +103486,22 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
       return ScreensNativeModules.NativeScreenContainer;
     },
 
+    get ScreenStack() {
+      return ScreensNativeModules.NativeScreenStack;
+    },
+
+    get ScreenStackHeaderConfig() {
+      return ScreensNativeModules.NativeScreenStackHeaderConfig;
+    },
+
+    get ScreenStackHeaderSubview() {
+      return ScreensNativeModules.NativeScreenStackHeaderSubview;
+    },
+
+    ScreenStackHeaderRightView: ScreenStackHeaderRightView,
+    ScreenStackHeaderLeftView: ScreenStackHeaderLeftView,
+    ScreenStackHeaderTitleView: ScreenStackHeaderTitleView,
+    ScreenStackHeaderCenterView: ScreenStackHeaderCenterView,
     useScreens: useScreens,
     screensEnabled: screensEnabled
   };
@@ -106692,9 +106792,8 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   var _style = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[15], "../../app/style/style"));
 
-  _$$_REQUIRE(_dependencyMap[16], "../../app/config/config");
-
-  var _temp,
+  var _class,
+      _temp,
       _jsxFileName = "d:\\android\\react\\React-Native-CLI\\react_native_map\\app\\navigation\\Home.js";
 
   var _components = {
@@ -106822,9 +106921,9 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
       "color": "#17263c"
     }]
   }];
-  navigator.geolocation = _$$_REQUIRE(_dependencyMap[17], "@react-native-community/geolocation");
+  navigator.geolocation = _$$_REQUIRE(_dependencyMap[16], "@react-native-community/geolocation");
 
-  var Home = _wrapComponent("Home")((_temp = function (_React$Component) {
+  var Home = _wrapComponent("Home")((_temp = _class = function (_React$Component) {
     (0, _inherits2.default)(Home, _React$Component);
 
     function Home() {
@@ -106882,8 +106981,6 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     (0, _createClass2.default)(Home, [{
       key: "componentDidMount",
       value: function componentDidMount() {
-        global.root = this;
-
         _Gps.default.findCoordinates(this.success, this.error);
       }
     }, {
@@ -106895,12 +106992,11 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421
         };
-        var coordinate = this.state.coordinate;
         return _react.default.createElement(_reactNative.View, {
           style: _style.default.container,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 94
+            lineNumber: 99
           }
         }, _react.default.createElement(_Map.default, {
           style: _style.default.map,
@@ -106909,22 +107005,33 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
           component: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 95
+            lineNumber: 100
           }
         }), _react.default.createElement(_IconBottom.default, {
+          style: _style.default.iconBottom,
+          component: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 101
+            lineNumber: 106
           }
         }));
       }
     }]);
     return Home;
-  }(_react.default.Component), _temp));
+  }(_react.default.Component), _class.navigationOptions = {
+    title: 'Home',
+    headerStyle: {
+      backgroundColor: '#f4511e'
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold'
+    }
+  }, _temp));
 
   var _default2 = Home;
   exports.default = _default2;
-},662,[1,156,22,23,30,33,36,47,195,2,663,671,687,696,697,688,698,699],"app\\navigation\\Home.js");
+},662,[1,156,22,23,30,33,36,47,195,2,663,671,687,697,698,688,699],"app\\navigation\\Home.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   'use strict';
 
@@ -110022,6 +110129,8 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   var _FlatListViewNormal = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[12], "../../app/components/library/FlatListViewNormal"));
 
+  var _Navigation = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[13], "../../app/utility/Navigation"));
+
   var _jsxFileName = "d:\\android\\react\\React-Native-CLI\\react_native_map\\app\\components\\IconBottom.js";
   var _components = {
     IconBottom: {
@@ -110043,35 +110152,14 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   }
 
   var data = [{
-    src: _$$_REQUIRE(_dependencyMap[13], "../../app/access/img/coffee.png")
+    src: _$$_REQUIRE(_dependencyMap[14], "../../app/access/img/coffee.png")
   }, {
-    src: _$$_REQUIRE(_dependencyMap[14], "../../app/access/img/karaoke.png")
+    src: _$$_REQUIRE(_dependencyMap[15], "../../app/access/img/karaoke.png")
   }, {
-    src: _$$_REQUIRE(_dependencyMap[15], "../../app/access/img/park.png")
+    src: _$$_REQUIRE(_dependencyMap[16], "../../app/access/img/park.png")
   }, {
-    src: _$$_REQUIRE(_dependencyMap[16], "../../app/access/img/atm.png")
+    src: _$$_REQUIRE(_dependencyMap[17], "../../app/access/img/atm.png")
   }];
-
-  var renderItem = function renderItem(_ref) {
-    var item = _ref.item,
-        index = _ref.index;
-    return _react.default.createElement(_reactNative.TouchableOpacity, {
-      onPress: function onPress() {
-        return _function.default.loadNear();
-      },
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 35
-      }
-    }, _react.default.createElement(_reactNative.Image, {
-      style: _style.default.img,
-      source: item.src,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 36
-      }
-    }));
-  };
 
   var IconBottom = function (_Component) {
     (0, _inherits2.default)(IconBottom, _Component);
@@ -110084,13 +110172,36 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     (0, _createClass2.default)(IconBottom, [{
       key: "render",
       value: function render() {
+        var _this = this;
+
+        var renderItem = function renderItem(_ref) {
+          var item = _ref.item,
+              index = _ref.index;
+          return _react.default.createElement(_reactNative.TouchableOpacity, {
+            onPress: function onPress() {
+              return new _Navigation.default(_this.props.component.props.navigation).gotoScreen('ShowNear');
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 38
+            }
+          }, _react.default.createElement(_reactNative.Image, {
+            style: _style.default.img,
+            source: item.src,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 39
+            }
+          }));
+        };
+
         return _react.default.createElement(_reactNative.View, {
+          style: this.props.style,
           __source: {
             fileName: _jsxFileName,
             lineNumber: 46
           }
         }, _react.default.createElement(_FlatListViewNormal.default, {
-          style: _style.default.center,
           data: data,
           renderItem: renderItem,
           horizontal: true,
@@ -110107,7 +110218,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   IconBottom = _wrapComponent("IconBottom")(IconBottom);
   var _default2 = IconBottom;
   exports.default = _default2;
-},687,[1,156,22,23,30,33,36,47,195,2,688,689,691,692,693,694,695],"app\\components\\IconBottom.js");
+},687,[1,156,22,23,30,33,36,47,195,2,688,689,691,692,693,694,695,696],"app\\components\\IconBottom.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   var _reactNative = _$$_REQUIRE(_dependencyMap[0], "react-native");
 
@@ -110116,16 +110227,31 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
       flex: 1
     },
     map: {
-      flex: 1
+      flex: 8
     },
-    center: {
+    iconBottom: {
       justifyContent: 'center',
+      alignItems: 'center',
       backgroundColor: '#ccc',
-      width: '100%'
+      width: '100%',
+      flex: 1
     },
     img: {
       width: 56,
       height: 56
+    },
+    img_: {
+      width: 100,
+      height: 100,
+      paddingLeft: 20
+    },
+    listItemBottom: {
+      backgroundColor: '#ccc',
+      flex: 3
+    },
+    listItemBottom_: {
+      paddingTop: 10,
+      paddingBottom: 10
     }
   });
 },688,[2],"app\\style\\style.js");
@@ -110137,21 +110263,117 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   });
   exports.default = void 0;
 
-  var _classCallCheck2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[1], "@babel/runtime/helpers/classCallCheck"));
+  var _regenerator = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[1], "@babel/runtime/regenerator"));
 
-  var _createClass2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[2], "@babel/runtime/helpers/createClass"));
+  var _classCallCheck2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[2], "@babel/runtime/helpers/classCallCheck"));
 
-  var _network = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3], "../network/network"));
+  var _createClass2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3], "@babel/runtime/helpers/createClass"));
+
+  var _network = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[4], "../network/network"));
 
   var Functions = function () {
     function Functions() {
       (0, _classCallCheck2.default)(this, Functions);
+
+      this.loadNear_ = function _callee(callbackLoadNear) {
+        var url, responseData, responseData_, apiKey, typeMap, results, markers;
+        return _regenerator.default.async(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                url = global.nearUrl;
+                apiKey = global.apiKey;
+                typeMap = 'restaurant';
+                url = url + "?location=" + global.latitude + "," + global.longitude + "&radius=500&types=" + typeMap + "&key=" + apiKey;
+                _context.prev = 4;
+                _context.next = 7;
+                return _regenerator.default.awrap(_network.default.fetchjsonResponseNotCallback(url));
+
+              case 7:
+                responseData = _context.sent;
+                results = responseData.results;
+                markers = [];
+                position = 0;
+
+              case 11:
+                if (!(position < results.length)) {
+                  _context.next = 20;
+                  break;
+                }
+
+                url = global.placeIdUrl + "?placeid=" + results[position].place_id + "&key=" + apiKey;
+                _context.next = 15;
+                return _regenerator.default.awrap(_network.default.fetchjsonResponseNotCallback(url));
+
+              case 15:
+                responseData_ = _context.sent;
+
+                if (responseData_.status == 'OVER_QUERY_LIMIT') {
+                  markers[position] = {};
+                  markers[position].title = results[position].name;
+                  markers[position].coordinates = {};
+                  markers[position].coordinates.latitude = results[position].geometry.location.lat;
+                  markers[position].coordinates.longitude = results[position].geometry.location.lng;
+                  markers[position].photos = [];
+                  markers[position].photos[0] = {};
+                  markers[position].photos[1] = {};
+                  markers[position].photos[2] = {};
+                  markers[position].photos[3] = {};
+                  markers[position].photos[4] = {};
+                  markers[position].photos[0].src = 'https://image.shutterstock.com/image-photo/group-happy-friends-having-breakfast-260nw-1201677928.jpg';
+                  markers[position].photos[1].src = 'https://image.shutterstock.com/image-photo/last-straw-260nw-299406014.jpg';
+                  markers[position].photos[2].src = 'https://image.shutterstock.com/image-photo/food-concept-chef-white-uniform-260nw-617005082.jpg';
+                  markers[position].photos[3].src = 'https://image.shutterstock.com/image-photo/table-set-restaurant-260nw-282446912.jpg';
+                  markers[position].photos[4].src = 'https://cdn.pixabay.com/photo/2016/10/22/20/34/wine-1761613__340.jpg';
+                } else {
+                  markers[position] = {};
+                  markers[position].title = responseData_.result.name;
+                  markers[position].coordinates = {};
+                  markers[position].coordinates.latitude = responseData_.result.geometry.location.lat;
+                  markers[position].coordinates.longitude = responseData_.result.geometry.location.lng;
+                  markers[position].photos = [];
+                  markers[position].photos[0] = {};
+                  markers[position].photos[1] = {};
+                  markers[position].photos[2] = {};
+                  markers[position].photos[3] = {};
+                  markers[position].photos[4] = {};
+                  markers[position].photos[0].src = 'https://image.shutterstock.com/image-photo/group-happy-friends-having-breakfast-260nw-1201677928.jpg';
+                  markers[position].photos[1].src = 'https://image.shutterstock.com/image-photo/last-straw-260nw-299406014.jpg';
+                  markers[position].photos[2].src = 'https://image.shutterstock.com/image-photo/food-concept-chef-white-uniform-260nw-617005082.jpg';
+                  markers[position].photos[3].src = 'https://image.shutterstock.com/image-photo/table-set-restaurant-260nw-282446912.jpg';
+                  markers[position].photos[4].src = 'https://cdn.pixabay.com/photo/2016/10/22/20/34/wine-1761613__340.jpg';
+                }
+
+              case 17:
+                position++;
+                _context.next = 11;
+                break;
+
+              case 20:
+                callbackLoadNear(markers);
+                _context.next = 26;
+                break;
+
+              case 23:
+                _context.prev = 23;
+                _context.t0 = _context["catch"](4);
+                console.log(_context.t0);
+
+              case 26:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, null, null, [[4, 23]]);
+      };
     }
 
     (0, _createClass2.default)(Functions, [{
       key: "loadNear",
-      value: function loadNear() {
-        var url = global.nearUrl;
+      value: function loadNear(callbackLoadNear) {
+        var url = global.nearUrl,
+            url_;
+        var count = 0;
         var apiKey = global.apiKey;
         var typeMap = 'restaurant';
 
@@ -110159,28 +110381,58 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
           var markers = [];
 
           try {
-            var results = responseData.results;
+            var callback_;
 
-            for (i = 0; i < results.length; i++) {
-              try {
-                markers[i] = {};
-                markers[i].title = results[i].name;
-                markers[i].coordinates = {};
-                markers[i].coordinates.latitude = results[i].geometry.location.lat;
-                markers[i].coordinates.longitude = results[i].geometry.location.lng;
-              } catch (error) {
-                console.log(error);
-                markers[i] = {};
-                markers[i].title = '';
-                markers[i].coordinates = {};
-                markers[i].coordinates.latitude = 0;
-                markers[i].coordinates.longitude = 0;
+            (function () {
+              var results = responseData.results;
+
+              for (i = 0; i < results.length; i++) {
+                url_ = global.placeIdUrl + "?placeid=" + results[i].place_id + "&key=" + apiKey;
+
+                callback_ = function callback_(responseData, position) {
+                  if (responseData.status == 'OVER_QUERY_LIMIT') {
+                    markers[position] = {};
+                    markers[position].title = results[position].name;
+                    markers[position].coordinates = {};
+                    markers[position].coordinates.latitude = results[position].geometry.location.lat;
+                    markers[position].coordinates.longitude = results[position].geometry.location.lng;
+                    markers[position].photos = [];
+                    markers[position].photos[0] = {};
+                    markers[position].photos[1] = {};
+                    markers[position].photos[2] = {};
+                    markers[position].photos[3] = {};
+                    markers[position].photos[4] = {};
+                    markers[position].photos[0].src = 'https://image.shutterstock.com/image-photo/group-happy-friends-having-breakfast-260nw-1201677928.jpg';
+                    markers[position].photos[1].src = 'https://image.shutterstock.com/image-photo/last-straw-260nw-299406014.jpg';
+                    markers[position].photos[2].src = 'https://image.shutterstock.com/image-photo/food-concept-chef-white-uniform-260nw-617005082.jpg';
+                    markers[position].photos[3].src = 'https://image.shutterstock.com/image-photo/table-set-restaurant-260nw-282446912.jpg';
+                    markers[position].photos[4].src = 'https://cdn.pixabay.com/photo/2016/10/22/20/34/wine-1761613__340.jpg';
+                  } else {
+                    markers[position] = {};
+                    markers[position].title = responseData.result.name;
+                    markers[position].coordinates = {};
+                    markers[position].coordinates.latitude = responseData.result.geometry.location.lat;
+                    markers[position].coordinates.longitude = responseData.result.geometry.location.lng;
+                    markers[position].photos = [];
+                    markers[position].photos[0] = {};
+                    markers[position].photos[1] = {};
+                    markers[position].photos[2] = {};
+                    markers[position].photos[3] = {};
+                    markers[position].photos[4] = {};
+                    markers[position].photos[0].src = 'https://image.shutterstock.com/image-photo/group-happy-friends-having-breakfast-260nw-1201677928.jpg';
+                    markers[position].photos[1].src = 'https://image.shutterstock.com/image-photo/last-straw-260nw-299406014.jpg';
+                    markers[position].photos[2].src = 'https://image.shutterstock.com/image-photo/food-concept-chef-white-uniform-260nw-617005082.jpg';
+                    markers[position].photos[3].src = 'https://image.shutterstock.com/image-photo/table-set-restaurant-260nw-282446912.jpg';
+                    markers[position].photos[4].src = 'https://cdn.pixabay.com/photo/2016/10/22/20/34/wine-1761613__340.jpg';
+                  }
+
+                  count++;
+                  if (count == results.length) callbackLoadNear(markers);
+                };
+
+                _network.default.fetchjsonResponsePosition(url_, callback_, i);
               }
-            }
-
-            global.root.setState({
-              markers: markers
-            });
+            })();
           } catch (error) {
             console.log(error);
           }
@@ -110197,7 +110449,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   var functions = new Functions();
   var _default = functions;
   exports.default = _default;
-},689,[1,22,23,690],"app\\function\\function.js");
+},689,[1,98,22,23,690],"app\\function\\function.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
 
@@ -110225,6 +110477,22 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
         }).then(function (responseData) {
           callback(responseData);
         }).catch(function (error) {});
+      }
+    }, {
+      key: "fetchjsonResponsePosition",
+      value: function fetchjsonResponsePosition(url, callback, position) {
+        return fetch(url).then(function (response) {
+          return response.json();
+        }).then(function (responseData) {
+          callback(responseData, position);
+        }).catch(function (error) {});
+      }
+    }, {
+      key: "fetchjsonResponseNotCallback",
+      value: function fetchjsonResponseNotCallback(url) {
+        return fetch(url).then(function (response) {
+          return response.json();
+        });
       }
     }]);
     return Network;
@@ -110310,6 +110578,38 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   exports.default = _default2;
 },691,[1,156,22,23,30,33,36,47,195,2],"app\\components\\library\\FlatListViewNormal.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _classCallCheck2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[1], "@babel/runtime/helpers/classCallCheck"));
+
+  var _createClass2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[2], "@babel/runtime/helpers/createClass"));
+
+  var Navigation = function () {
+    function Navigation(navigation) {
+      (0, _classCallCheck2.default)(this, Navigation);
+      this.navigation = navigation;
+    }
+
+    (0, _createClass2.default)(Navigation, [{
+      key: "gotoScreen",
+      value: function gotoScreen(screen) {
+        this.navigation.navigate(screen, {
+          itemId: 86,
+          name: 'vunam'
+        });
+      }
+    }]);
+    return Navigation;
+  }();
+
+  exports.default = Navigation;
+},692,[1,22,23],"app\\utility\\Navigation.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   module.exports = _$$_REQUIRE(_dependencyMap[0], "d:\\android\\react\\React-Native-CLI\\react_native_map\\node_modules\\react-native\\Libraries\\Image\\AssetRegistry").registerAsset({
     "__packager_asset": true,
     "httpServerLocation": "/assets/app/access/img",
@@ -110320,7 +110620,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     "name": "coffee",
     "type": "png"
   });
-},692,[188],"app\\access\\img\\coffee.png");
+},693,[188],"app\\access\\img\\coffee.png");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   module.exports = _$$_REQUIRE(_dependencyMap[0], "d:\\android\\react\\React-Native-CLI\\react_native_map\\node_modules\\react-native\\Libraries\\Image\\AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -110332,7 +110632,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     "name": "karaoke",
     "type": "png"
   });
-},693,[188],"app\\access\\img\\karaoke.png");
+},694,[188],"app\\access\\img\\karaoke.png");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   module.exports = _$$_REQUIRE(_dependencyMap[0], "d:\\android\\react\\React-Native-CLI\\react_native_map\\node_modules\\react-native\\Libraries\\Image\\AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -110344,7 +110644,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     "name": "park",
     "type": "png"
   });
-},694,[188],"app\\access\\img\\park.png");
+},695,[188],"app\\access\\img\\park.png");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   module.exports = _$$_REQUIRE(_dependencyMap[0], "d:\\android\\react\\React-Native-CLI\\react_native_map\\node_modules\\react-native\\Libraries\\Image\\AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -110356,7 +110656,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     "name": "atm",
     "type": "png"
   });
-},695,[188],"app\\access\\img\\atm.png");
+},696,[188],"app\\access\\img\\atm.png");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
 
@@ -110396,7 +110696,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   var gps = new Gps();
   var _default = gps;
   exports.default = _default;
-},696,[1,22,23],"app\\utility\\Gps.js");
+},697,[1,22,23],"app\\utility\\Gps.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
 
@@ -110425,11 +110725,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   }();
 
   exports.default = Map;
-},697,[1,22,23],"app\\utility\\Map.js");
-__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
-  global.nearUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
-  global.apiKey = 'AIzaSyAuHNP03pgK8KEOt9Nc0WLmDqkPX0Cc9uk';
-},698,[],"app\\config\\config.js");
+},698,[1,22,23],"app\\utility\\Map.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
 
@@ -110600,12 +110896,417 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     warning: warning
   };
 },702,[],"node_modules\\@react-native-community\\geolocation\\js\\utils.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
+
+  var _interopRequireWildcard = _$$_REQUIRE(_dependencyMap[1], "@babel/runtime/helpers/interopRequireWildcard");
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _classCallCheck2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[2], "@babel/runtime/helpers/classCallCheck"));
+
+  var _createClass2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3], "@babel/runtime/helpers/createClass"));
+
+  var _possibleConstructorReturn2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[4], "@babel/runtime/helpers/possibleConstructorReturn"));
+
+  var _getPrototypeOf3 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[5], "@babel/runtime/helpers/getPrototypeOf"));
+
+  var _inherits2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[6], "@babel/runtime/helpers/inherits"));
+
+  var _react = _interopRequireWildcard(_$$_REQUIRE(_dependencyMap[7], "react"));
+
+  var _index = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[8], "./../../node_modules/react-transform-hmr/lib/index.js"));
+
+  var _reactNative = _$$_REQUIRE(_dependencyMap[9], "react-native");
+
+  var _NewAppScreen = _$$_REQUIRE(_dependencyMap[10], "react-native/Libraries/NewAppScreen");
+
+  var _Map = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[11], "../../app/components/library/Map"));
+
+  var _ListItemBottom = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[12], "../../app/components/ListItemBottom"));
+
+  var _function = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[13], "../../app/function/function"));
+
+  var _Map2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[14], "../../app/utility/Map"));
+
+  var _style = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[15], "../style/style"));
+
+  var _class,
+      _temp,
+      _jsxFileName = "d:\\android\\react\\React-Native-CLI\\react_native_map\\app\\navigation\\ShowNear.js";
+
+  var _components = {
+    ShowNear: {
+      displayName: "ShowNear"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index.default)({
+    filename: "app\\navigation\\ShowNear.js",
+    components: _components,
+    locals: [module],
+    imports: [_react.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var mapStyle = [{
+    "elementType": "geometry",
+    "stylers": [{
+      "color": "#242f3e"
+    }]
+  }, {
+    "elementType": "labels.text.fill",
+    "stylers": [{
+      "color": "#746855"
+    }]
+  }, {
+    "elementType": "labels.text.stroke",
+    "stylers": [{
+      "color": "#242f3e"
+    }]
+  }, {
+    "featureType": "administrative.locality",
+    "elementType": "labels.text.fill",
+    "stylers": [{
+      "color": "#d59563"
+    }]
+  }, {
+    "featureType": "poi",
+    "elementType": "labels.text.fill",
+    "stylers": [{
+      "color": "#d59563"
+    }]
+  }, {
+    "featureType": "poi.park",
+    "elementType": "geometry",
+    "stylers": [{
+      "color": "#263c3f"
+    }]
+  }, {
+    "featureType": "poi.park",
+    "elementType": "labels.text.fill",
+    "stylers": [{
+      "color": "#6b9a76"
+    }]
+  }, {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [{
+      "color": "#38414e"
+    }]
+  }, {
+    "featureType": "road",
+    "elementType": "geometry.stroke",
+    "stylers": [{
+      "color": "#212a37"
+    }]
+  }, {
+    "featureType": "road",
+    "elementType": "labels.text.fill",
+    "stylers": [{
+      "color": "#9ca5b3"
+    }]
+  }, {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [{
+      "color": "#746855"
+    }]
+  }, {
+    "featureType": "road.highway",
+    "elementType": "geometry.stroke",
+    "stylers": [{
+      "color": "#1f2835"
+    }]
+  }, {
+    "featureType": "road.highway",
+    "elementType": "labels.text.fill",
+    "stylers": [{
+      "color": "#f3d19c"
+    }]
+  }, {
+    "featureType": "transit",
+    "elementType": "geometry",
+    "stylers": [{
+      "color": "#2f3948"
+    }]
+  }, {
+    "featureType": "transit.station",
+    "elementType": "labels.text.fill",
+    "stylers": [{
+      "color": "#d59563"
+    }]
+  }, {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [{
+      "color": "#17263c"
+    }]
+  }, {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [{
+      "color": "#515c6d"
+    }]
+  }, {
+    "featureType": "water",
+    "elementType": "labels.text.stroke",
+    "stylers": [{
+      "color": "#17263c"
+    }]
+  }];
+
+  var callBack = function callBack(markers) {
+    var newRegion = {
+      latitude: global.latitude,
+      longitude: global.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421
+    };
+    new _Map2.default(global.root.mapView).animateToRegion(newRegion, 1000);
+    global.root.setState({
+      markers: markers
+    });
+    global.root.setState({
+      data: markers
+    });
+  };
+
+  navigator.geolocation = _$$_REQUIRE(_dependencyMap[16], "@react-native-community/geolocation");
+
+  var ShowNear = _wrapComponent("ShowNear")((_temp = _class = function (_React$Component) {
+    (0, _inherits2.default)(ShowNear, _React$Component);
+
+    function ShowNear() {
+      var _getPrototypeOf2;
+
+      var _this;
+
+      (0, _classCallCheck2.default)(this, ShowNear);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(ShowNear)).call.apply(_getPrototypeOf2, [this].concat(args)));
+      _this.state = {
+        data: [],
+        markers: [{
+          title: '',
+          coordinates: {
+            latitude: 0,
+            longitude: 0
+          }
+        }]
+      };
+      return _this;
+    }
+
+    (0, _createClass2.default)(ShowNear, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        global.root = this;
+
+        _function.default.loadNear_(callBack);
+
+        console.log('nambu');
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var initialRegion = {
+          latitude: global.latitude,
+          longitude: global.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
+        };
+        return _react.default.createElement(_reactNative.View, {
+          style: _style.default.container,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 88
+          }
+        }, _react.default.createElement(_Map.default, {
+          style: _style.default.map,
+          initialRegion: initialRegion,
+          coordinate: this.state.markers,
+          component: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 89
+          }
+        }), _react.default.createElement(_ListItemBottom.default, {
+          data: this.state.data,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 95
+          }
+        }));
+      }
+    }]);
+    return ShowNear;
+  }(_react.default.Component), _class.navigationOptions = {
+    title: 'Detail',
+    headerStyle: {
+      backgroundColor: '#f4511e'
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold'
+    }
+  }, _temp));
+
+  var _default2 = ShowNear;
+  exports.default = _default2;
+},703,[1,156,22,23,30,33,36,47,195,2,663,671,704,689,698,688,699],"app\\navigation\\ShowNear.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
+
+  var _interopRequireWildcard = _$$_REQUIRE(_dependencyMap[1], "@babel/runtime/helpers/interopRequireWildcard");
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _classCallCheck2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[2], "@babel/runtime/helpers/classCallCheck"));
+
+  var _createClass2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3], "@babel/runtime/helpers/createClass"));
+
+  var _possibleConstructorReturn2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[4], "@babel/runtime/helpers/possibleConstructorReturn"));
+
+  var _getPrototypeOf2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[5], "@babel/runtime/helpers/getPrototypeOf"));
+
+  var _inherits2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[6], "@babel/runtime/helpers/inherits"));
+
+  var _react = _interopRequireWildcard(_$$_REQUIRE(_dependencyMap[7], "react"));
+
+  var _index = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[8], "./../../node_modules/react-transform-hmr/lib/index.js"));
+
+  var _reactNative = _$$_REQUIRE(_dependencyMap[9], "react-native");
+
+  var _style = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[10], "../../app/style/style"));
+
+  var _function = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[11], "../../app/function/function"));
+
+  var _FlatListViewNormal = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[12], "../../app/components/library/FlatListViewNormal"));
+
+  var _Navigation = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[13], "../../app/utility/Navigation"));
+
+  var _jsxFileName = "d:\\android\\react\\React-Native-CLI\\react_native_map\\app\\components\\ListItemBottom.js";
+  var _components = {
+    ListItemBottom: {
+      displayName: "ListItemBottom"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index.default)({
+    filename: "app\\components\\ListItemBottom.js",
+    components: _components,
+    locals: [module],
+    imports: [_react.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var ListItemBottom = function (_Component) {
+    (0, _inherits2.default)(ListItemBottom, _Component);
+
+    function ListItemBottom() {
+      (0, _classCallCheck2.default)(this, ListItemBottom);
+      return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ListItemBottom).apply(this, arguments));
+    }
+
+    (0, _createClass2.default)(ListItemBottom, [{
+      key: "render",
+      value: function render() {
+        var renderItem = function renderItem(_ref) {
+          var item = _ref.item,
+              index = _ref.index;
+          return _react.default.createElement(_reactNative.View, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 23
+            }
+          }, _react.default.createElement(_reactNative.Text, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 24
+            }
+          }, item.title), _react.default.createElement(_FlatListViewNormal.default, {
+            style: _style.default.listItemBottom_,
+            data: item.photos,
+            renderItem: renderItemChild,
+            horizontal: true,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 25
+            }
+          }));
+        };
+
+        var renderItemChild = function renderItemChild(_ref2) {
+          var item = _ref2.item,
+              index = _ref2.index;
+          return _react.default.createElement(_reactNative.Image, {
+            style: _style.default.img_,
+            source: {
+              uri: item.src
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 34
+            }
+          });
+        };
+
+        return _react.default.createElement(_reactNative.View, {
+          style: _style.default.listItemBottom,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 40
+          }
+        }, _react.default.createElement(_FlatListViewNormal.default, {
+          data: this.props.data,
+          renderItem: renderItem,
+          horizontal: false,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 41
+          }
+        }));
+      }
+    }]);
+    return ListItemBottom;
+  }(_react.Component);
+
+  ListItemBottom = _wrapComponent("ListItemBottom")(ListItemBottom);
+  var _default2 = ListItemBottom;
+  exports.default = _default2;
+},704,[1,156,22,23,30,33,36,47,195,2,688,689,691,692],"app\\components\\ListItemBottom.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  global.nearUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
+  global.placeIdUrl = 'https://maps.googleapis.com/maps/api/place/details/json';
+  global.apiKey = 'AIzaSyAuHNP03pgK8KEOt9Nc0WLmDqkPX0Cc9uk';
+},705,[],"app\\config\\config.js");
 __d(function(global, require, _aUnused, _bUnused, module, exports, _cUnused) {
   module.exports = {
   "name": "react_native_map",
   "displayName": "react_native_map"
 };
-},703,[],"app.json");
+},706,[],"app.json");
 __r(83);
 __r(0);
 //# sourceMappingURL=index.map

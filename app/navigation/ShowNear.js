@@ -42,7 +42,7 @@ var callBack = function (markers) {
   global.root.setState({ data: markers });
 }
 
-navigator.geolocation = require('@react-native-community/geolocation');
+navigator.geolocation = require('@react-native-community/geolocation');zzz
 
 export default class ShowNear extends React.Component {
   state = {
